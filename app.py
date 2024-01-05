@@ -39,11 +39,11 @@ def protected():
 @app.route("/check", methods=["GET"])
 @jwt_required()
 def check():
-    curent_user = get_jwt_identity()
     try:
-        return jsonify(logged_in_as=current_user), 200
-    except:
-         return jsonify({"msg": "Not authorised user"}), 401
+        curent_user = get_jwt_identity()
+        return jsonify(massage="This is another protected endpoit."), 200
+    except exceptions.JWTError as e:
+        return jsonify({"msg": "Unauthorised access. Provide sa valid token"}), 401
 
 if __name__ == "__main__":
     app.run()
